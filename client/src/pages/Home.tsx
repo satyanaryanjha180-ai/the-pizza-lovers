@@ -1,12 +1,11 @@
-/* Tandoor & Tomato: editorial café composition, warm tactile color, direct ordering, and honest local voice. */
 import { useMemo, useState } from "react";
-import { ArrowUpRight, Check, ChevronDown, Clock3, Facebook, Instagram, MapPin, Menu as MenuIcon, Phone, Search, Star, Utensils, X } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, Clock3, Facebook, Instagram, MapPin, Menu as MenuIcon, Phone, Scissors, Search, Star, X } from "lucide-react";
 import { toast } from "sonner";
 
 const WHATSAPP = "919369722736";
 const phoneHref = "tel:+919369722736";
 const mapHref = "https://www.google.com/maps/search/?api=1&query=The+Pizza+Lover%27s+Takiya+Rd+Patan+Takiya+Uttar+Pradesh+209867";
-const heroImage = "/manus-storage/pizza-hero_07a73fae.jpg";
+const heroImage = "/manus-storage/pizza-cutting-hero_c375a7e1.jpg";
 const detailImage = "/manus-storage/pizza-detail_ddc767ff.jpg";
 const snacksImage = "/manus-storage/snacks-spread_e136d195.jpg";
 const markImage = "/manus-storage/pizza-mark_1e4322b0.png";
@@ -59,12 +58,19 @@ export default function Home() {
       <section className="hero section-pad">
         <div className="hero-copy">
           <p className="eyebrow"><span className="eyebrow-line" /> Fresh from the counter · Patan</p>
-          <h1>Fresh Pizza.<br /><span>Made With Love.</span></h1>
-          <p className="hero-intro">Delicious vegetarian pizzas, burgers, momos, pasta and more at prices you'll love.</p>
-          <div className="hero-actions"><button className="button button-primary" onClick={() => scrollToId("menu")}>View Menu <ArrowUpRight size={17} /></button><a className="button button-ink" href={orderLink("a delicious meal")} target="_blank" rel="noreferrer">Order on WhatsApp <ArrowUpRight size={17} /></a></div>
-          <div className="hero-badges"><span><Star size={15} fill="currentColor" /> 4.3/5 Rating</span><span><Check size={15} /> 100% Veg</span><span><span className="rupee">₹</span> Affordable Prices</span></div>
+          <h1>Cut into<br /><span>something good.</span></h1>
+          <p className="hero-intro">Hand-stretched vegetarian pizza, baked hot and sliced fresh for the people you love.</p>
+          <div className="hero-actions"><button className="button button-primary" onClick={() => scrollToId("menu")}>Choose your slice <ArrowUpRight size={17} /></button><a className="button button-ink" href={orderLink("a delicious meal")} target="_blank" rel="noreferrer">Order on WhatsApp <ArrowUpRight size={17} /></a></div>
+          <div className="hero-badges"><span><Scissors size={15} /> Cut fresh, always</span><span><Check size={15} /> 100% Veg</span><span><span className="rupee">₹</span> Friendly prices</span></div>
         </div>
-        <div className="hero-visual"><img src={heroImage} alt="Fresh vegetarian pizza with paneer, onion, capsicum and corn" /><div className="hero-stamp"><strong>100%</strong><span>VEG<br />& FRESH</span></div><div className="hero-caption">Eat with love <span>♥</span></div></div>
+        <div className="hero-visual">
+          <div className="hero-orbit orbit-one" />
+          <div className="hero-orbit orbit-two" />
+          <img src={heroImage} alt="A hand cutting a fresh vegetarian pizza with a brass pizza cutter" />
+          <div className="hero-stamp"><strong>100%</strong><span>VEG<br />& FRESH</span></div>
+          <div className="hero-caption"><Scissors size={16} /> The first cut is yours</div>
+          <div className="hero-note"><span>01</span><strong>Made to<br />be shared.</strong></div>
+        </div>
       </section>
 
       <section className="intro-band"><div className="section-pad intro-inner"><div className="ticket-label">A little about us</div><p>Welcome to <strong>The Pizza Lover's</strong> — your local destination for delicious, freshly prepared vegetarian pizzas, snacks, drinks and café favourites.</p><div className="intro-mark">✦</div></div></section>
