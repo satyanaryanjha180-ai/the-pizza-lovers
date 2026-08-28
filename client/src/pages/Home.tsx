@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Check, ChevronDown, Clock3, Facebook, Instagram, MapPin, Menu as MenuIcon, Phone, Scissors, Search, Star, X } from "lucide-react";
 import { toast } from "sonner";
+import PizzaSliceScene from "@/components/PizzaSliceScene";
 
 const WHATSAPP = "919369722736";
 const phoneHref = "tel:+919369722736";
@@ -40,6 +41,7 @@ function orderLink(item: string) { return `https://wa.me/${WHATSAPP}?text=${enco
 function scrollToId(id: string) { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); }
 
 export default function Home() {
+  const heroRef = useRef<HTMLElement>(null);
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,37 +58,38 @@ export default function Home() {
     </header>
 
     <main id="home">
-      <section className="hero section-pad">
+      <section className="hero section-pad" ref={heroRef}>
         <div className="hero-copy">
           <p className="eyebrow"><span className="eyebrow-line" /> Fresh from the counter · Patan</p>
-          <h1>Cut into<br /><span>something good.</span></h1>
-          <p className="hero-intro">Hand-stretched vegetarian pizza, baked hot and sliced fresh for the people you love.</p>
-          <div className="hero-actions"><button className="button button-primary" onClick={() => scrollToId("menu")}>Choose your slice <ArrowUpRight size={17} /></button><a className="button button-ink" href={orderLink("a delicious meal")} target="_blank" rel="noreferrer">Order on WhatsApp <ArrowUpRight size={17} /></a></div>
+          <h1>Freshly Sliced.<br /><span>Perfectly Baked.</span></h1>
+          <p className="hero-intro">A hot vegetarian pizza, baked with patience, finished with melted cheese, and sliced fresh for the people you love.</p>
+          <div className="hero-actions"><button className="button button-primary" onClick={() => scrollToId("menu")}>Order Your Pizza <ArrowUpRight size={17} /></button><a className="button button-ink" href={orderLink("a delicious meal")} target="_blank" rel="noreferrer">Order on WhatsApp <ArrowUpRight size={17} /></a></div>
           <div className="hero-badges"><span><Scissors size={15} /> Cut fresh, always</span><span><Check size={15} /> 100% Veg</span><span><span className="rupee">₹</span> Friendly prices</span></div>
         </div>
-        <div className="hero-visual">
+        <div className="hero-visual hero-3d-visual" aria-label="Interactive 3D pizza being sliced with a pizza cutter">
           <div className="hero-orbit orbit-one" />
           <div className="hero-orbit orbit-two" />
-          <img src={heroImage} alt="A hand cutting a fresh vegetarian pizza with a brass pizza cutter" />
+          <div className="pizza-scene-shell"><PizzaSliceScene sectionRef={heroRef} /></div>
           <div className="hero-stamp"><strong>100%</strong><span>VEG<br />& FRESH</span></div>
-          <div className="hero-caption"><Scissors size={16} /> The first cut is yours</div>
+          <div className="hero-caption"><Scissors size={16} /> Scroll to slice</div>
           <div className="hero-note"><span>01</span><strong>Made to<br />be shared.</strong></div>
+          <div className="hero-scene-hint"><span className="hint-dot" /> Move down to make the cut</div>
         </div>
       </section>
 
-      <section className="intro-band"><div className="section-pad intro-inner"><div className="ticket-label">A little about us</div><p>Welcome to <strong>The Pizza Lover's</strong> — your local destination for delicious, freshly prepared vegetarian pizzas, snacks, drinks and café favourites.</p><div className="intro-mark">✦</div></div></section>
+      <section className="intro-band"><div className="section-pad intro-inner"><div className="ticket-label">A little about us</div><p>At the Patan counter, <strong>The Pizza Lover's</strong> keeps it simple: hot vegetarian pizza, generous toppings, and café favourites made for the table in front of you.</p><div className="intro-mark">✦</div></div></section>
 
-      <section className="menu-section section-pad" id="menu"><div className="section-heading"><div><p className="eyebrow">The good stuff</p><h2>Pick your craving.</h2></div><p className="heading-note">Every order is made fresh, hot and with a little extra love.</p></div>
+      <section className="menu-section section-pad" id="menu"><div className="section-heading"><div><p className="eyebrow">The good stuff</p><h2>Pick your craving.</h2></div><p className="heading-note">Pick a favourite, bring your people, and we’ll make it hot at the Patan counter.</p></div>
         <div className="menu-tools"><div className="category-tabs">{categories.map((category) => <button key={category} className={activeCategory === category ? "active" : ""} onClick={() => setActiveCategory(category)}>{category}</button>)}</div><label className="search-box"><Search size={17} /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search the menu" aria-label="Search the menu" /></label></div>
         <div className="menu-grid">{filtered.map((item, index) => <article className="menu-card menu-card-image" key={item.name} style={{ "--delay": `${index * 35}ms` } as React.CSSProperties}><img src={item.image} alt={item.imageAlt} onError={(event) => { const image = event.currentTarget; if (image.dataset.fallbackApplied === "true") return; image.dataset.fallbackApplied = "true"; image.src = imageFallback; }} />{item.tag && <span className="item-tag">{item.tag}</span>}<div className="menu-card-body"><span className="item-category">{item.category}</span><h3>{item.name}</h3><p className="price">{item.price}</p><a className="mini-order" href={orderLink(item.name)} target="_blank" rel="noreferrer">Order this <ArrowUpRight size={14} /></a></div></article>)}</div>
         {!filtered.length && <div className="empty-state">No cravings found for “{search}”. Try another search or category.</div>}
       </section>
 
-      <section className="feature-split" id="combos"><div className="feature-image"><img src={snacksImage} alt="Vegetarian burgers, momos and fries on a café table" /></div><div className="feature-copy"><p className="eyebrow">Good food, better value</p><h2>Make it a<br /><span>combo.</span></h2><p>Bring your people, pick your favourites, and save a little while you’re at it. Our best deals are made for sharing.</p><div className="deal-list"><div><span className="deal-badge">BEST DEAL</span><strong>Medium Pizza + 2 Coke</strong><b>₹209</b></div><div><span className="deal-badge">BEST DEAL</span><strong>Burger, Fingers, Cold Drink</strong><b>₹99</b></div><div><span className="deal-badge">BEST DEAL</span><strong>Veg Combo Double</strong><b>₹269</b></div></div><a className="text-link" href={orderLink("a combo deal")} target="_blank" rel="noreferrer">Order a combo <ArrowUpRight size={16} /></a></div></section>
+      <section className="feature-split" id="combos"><div className="feature-image"><img src={snacksImage} alt="Vegetarian burgers, momos and fries on a café table" /></div><div className="feature-copy"><p className="eyebrow">Good food, better value</p><h2>Make it a<br /><span>combo.</span></h2><p>Bring your people, pick your favourites, and save a little while you’re at it. These are the Patan counter deals made for sharing.</p><div className="deal-list"><div><span className="deal-badge">BEST DEAL</span><strong>Medium Pizza + 2 Coke</strong><b>₹209</b></div><div><span className="deal-badge">BEST DEAL</span><strong>Burger, Fingers, Cold Drink</strong><b>₹99</b></div><div><span className="deal-badge">BEST DEAL</span><strong>Veg Combo Double</strong><b>₹269</b></div></div><a className="text-link" href={orderLink("a combo deal")} target="_blank" rel="noreferrer">Order a combo <ArrowUpRight size={16} /></a></div></section>
 
-      <section className="about-section section-pad" id="about"><div className="about-copy"><p className="eyebrow">Why locals come back</p><h2>Made for pizza<br /><span>lovers.</span></h2><p>From the first cheesy bite to the last sip, we keep things fresh, flavourful and easy on the pocket. A friendly vegetarian café in Patan for family dinners, student hangouts and birthday plans.</p><a className="text-link" href={phoneHref}>Call the counter <Phone size={16} /></a></div><div className="perks-grid">{[["100%", "Vegetarian"], ["♥", "Family friendly"], ["✦", "Birthday friendly"], ["₹", "Affordable pricing"], ["↗", "Takeaway available"]].map(([icon, text]) => <div className="perk" key={text}><span>{icon}</span><strong>{text}</strong></div>)}</div></section>
+      <section className="about-section section-pad" id="about"><div className="about-copy"><p className="eyebrow">Why locals come back</p><h2>Made for pizza<br /><span>lovers.</span></h2><p>From the first cheesy bite to the last sip, we keep things fresh, flavourful and easy on the pocket — a vegetarian Patan café for family dinners, student hangouts and birthday plans.</p><a className="text-link" href={phoneHref}>Call the counter <Phone size={16} /></a></div><div className="perks-grid">{[["100%", "Vegetarian"], ["♥", "Family friendly"], ["✦", "Birthday friendly"], ["₹", "Affordable pricing"], ["↗", "Takeaway available"]].map(([icon, text]) => <div className="perk" key={text}><span>{icon}</span><strong>{text}</strong></div>)}</div></section>
 
-      <section className="reviews-section" id="reviews"><div className="section-pad reviews-inner"><div><p className="eyebrow">Kind words</p><h2>Small words.<br /><span>Big smiles.</span></h2></div><div className="rating-card"><div className="rating-number">4.3<span>/5</span></div><div><div className="stars">★★★★★</div><p>58 Reviews</p></div></div><div className="review-grid">{["Best experience", "Best ♥", "Nice", "Just ok"].map((review) => <blockquote key={review}>“{review}”</blockquote>)}</div></div></section>
+      <section className="reviews-section" id="reviews"><div className="section-pad reviews-inner"><div><p className="eyebrow">From the counter</p><h2>Small words.<br /><span>Big smiles.</span></h2></div><div className="rating-card"><div className="rating-number">4.3<span>/5</span></div><div><div className="stars">★★★★★</div><p>58 Reviews</p></div></div><div className="review-grid">{["Best experience", "Best ♥", "Nice", "Just ok"].map((review) => <blockquote key={review}>“{review}”</blockquote>)}</div></div></section>
 
       <section className="location-section section-pad" id="location"><div className="location-copy"><p className="eyebrow">Find us in Patan</p><h2>Come hungry.<br /><span>Leave happy.</span></h2><p className="address"><MapPin size={19} /> The Pizza Lover's,<br />Takiya Rd, Patan, Takiya,<br />Uttar Pradesh 209867</p><div className="location-actions"><a className="button button-primary" href={mapHref} target="_blank" rel="noreferrer">Get Directions <ArrowUpRight size={16} /></a><a className="button button-outline" href={phoneHref}>Call Now <Phone size={16} /></a></div><p className="hours"><Clock3 size={17} /> Open daily · 10:00 AM – 10:00 PM</p></div><div className="map-card"><iframe title="Map showing The Pizza Lover's in Takiya, Patan" src="https://www.google.com/maps?q=The+Pizza+Lover%27s,+Takiya+Rd,+Patan,+Uttar+Pradesh+209867&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><div className="map-pin"><MapPin size={19} fill="currentColor" /></div></div></section>
 

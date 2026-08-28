@@ -64,3 +64,8 @@ A compact tomato-and-pizza-slice emblem: a rounded triangular slice nested insid
 - Avoid purple gradients, generic rounded-everything UI, and default system typography.
 - Keep review copy limited to the exact short sentiments supplied by the restaurant brief.
 - Make WhatsApp, call, directions, and menu filtering functional before adding decorative flourish.
+
+- Food imagery should use warm real café photography with no obvious repeated crops within the same major section; illustration is allowed as a decorative brand motif, not the primary appetite cue.
+- Menu layouts should feel like an editorial printed menu poster, using tactile grouping, ticket labels, stamps, and imperfect borders to avoid a uniform ecommerce-card wall.
+- Brand copy must sound local, vegetarian, and craving-led; avoid generic hospitality phrases unless they include a specific Pizza Lover’s/Patan/counter detail.
+- The 3D hero is the primary appetite cue: keep it genuinely WebGL, warm-lit, scroll-responsive, and lightweight enough for mobile.
