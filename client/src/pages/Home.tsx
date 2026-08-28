@@ -5,10 +5,10 @@ import { toast } from "sonner";
 const WHATSAPP = "919369722736";
 const phoneHref = "tel:+919369722736";
 const mapHref = "https://www.google.com/maps/search/?api=1&query=The+Pizza+Lover%27s+Takiya+Rd+Patan+Takiya+Uttar+Pradesh+209867";
-const heroImage = "/manus-storage/pizza-cutting-hero_af946f07.webp";
-const detailImage = "/manus-storage/pizza-detail_09588d2c.webp";
-const snacksImage = "/manus-storage/snacks-spread_f78c3922.webp";
-const markImage = "/manus-storage/pizza-mark_aee04a33.webp";
+const heroImage = "/assets/pizza-cutting-hero.webp";
+const detailImage = "/assets/pizza-detail.webp";
+const snacksImage = "/assets/snacks-spread.webp";
+const markImage = "/assets/pizza-mark.webp";
 
 const imageFallback = detailImage;
 type MenuItem = { name: string; price: string; category: string; tag?: string; image: string; imageAlt: string };

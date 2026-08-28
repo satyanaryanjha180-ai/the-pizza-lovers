@@ -17,3 +17,11 @@ Make the menu data provide a valid image for every menu item, while keeping the 
 - Browser validation reported `failed: []`; every image was complete and had a non-zero natural width.
 - All image sources resolve to the four uploaded `/manus-storage/` paths rather than the old `/assets/` paths.
 - `pnpm check` and `pnpm build` both completed successfully. The build emitted only the existing large-chunk warning.
+
+## Published-domain regression check
+
+The user reported that no images are visible after the checkpoint. Direct inspection of `https://pizzalovers-4zpef68c.manus.space/` currently shows the logo, hero image, menu images, and combo image visible. Browser validation found 24 image elements, all complete with non-zero natural widths, and the rendered image rectangles have positive width and height. This indicates the published domain currently serves the storage URLs successfully; the remaining issue may be isolated to a stale/cached browser preview or a client environment that cannot reach `/manus-storage/`.
+
+## Same-origin repair verification
+
+The preview was rebuilt with the original same-origin `/assets/*.webp` paths and the image files restored under `client/public/assets/`. The updated browser test found 24 images with `failed: []`; all four same-origin source URLs returned loaded images with valid dimensions. The production build also includes all four `.webp` files under `dist/public/assets/`.
