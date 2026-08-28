@@ -5,33 +5,34 @@ import { toast } from "sonner";
 const WHATSAPP = "919369722736";
 const phoneHref = "tel:+919369722736";
 const mapHref = "https://www.google.com/maps/search/?api=1&query=The+Pizza+Lover%27s+Takiya+Rd+Patan+Takiya+Uttar+Pradesh+209867";
-const heroImage = "/assets/pizza-cutting-hero.webp";
-const detailImage = "/assets/pizza-detail.webp";
-const snacksImage = "/assets/snacks-spread.webp";
-const markImage = "/assets/pizza-mark.webp";
+const heroImage = "/manus-storage/pizza-cutting-hero_af946f07.webp";
+const detailImage = "/manus-storage/pizza-detail_09588d2c.webp";
+const snacksImage = "/manus-storage/snacks-spread_f78c3922.webp";
+const markImage = "/manus-storage/pizza-mark_aee04a33.webp";
 
-type MenuItem = { name: string; price: string; category: string; tag?: string; image?: string };
+const imageFallback = detailImage;
+type MenuItem = { name: string; price: string; category: string; tag?: string; image: string; imageAlt: string };
 const menu: MenuItem[] = [
-  { name: "Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", tag: "Popular", image: detailImage },
-  { name: "Mozzarella Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", image: heroImage },
-  { name: "Tomato & Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza" },
-  { name: "Onion & Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza" },
-  { name: "Loaded Cheese Pizza", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza", tag: "Best seller", image: heroImage },
-  { name: "Pizza Indiana", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza" },
-  { name: "Masala Paneer", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza" },
-  { name: "Dark Spicy", price: "S ₹175 · M ₹335 · L ₹465", category: "Special Pizza", tag: "Spicy" },
-  { name: "Veg. Momos", price: "₹39", category: "Sides", image: snacksImage },
-  { name: "Paneer Tikka", price: "₹49", category: "Sides" },
-  { name: "Cheese Garlic Bread", price: "₹80", category: "Sides" },
-  { name: "French Fries", price: "₹39", category: "Sides", image: snacksImage },
-  { name: "Veg. Maggi", price: "₹39", category: "Quick Bites" },
-  { name: "Cold Coffee", price: "₹49", category: "Quick Bites" },
-  { name: "Veg. Burger", price: "₹29", category: "Quick Bites", image: snacksImage },
-  { name: "Cheese Burger", price: "₹49", category: "Quick Bites" },
-  { name: "White Pasta", price: "₹79", category: "Quick Bites" },
-  { name: "Medium Pizza + 2 Coke", price: "₹209", category: "Combos", tag: "Best deal", image: heroImage },
-  { name: "Burger, Fingers, Cold Drink Combo", price: "₹99", category: "Combos", tag: "Best deal", image: snacksImage },
-  { name: "Veg Combo Double", price: "₹269", category: "Combos", tag: "Best deal" },
+  { name: "Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", tag: "Popular", image: detailImage, imageAlt: "Fresh cheese pizza topped with vegetables" },
+  { name: "Mozzarella Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", image: heroImage, imageAlt: "Hand-cut vegetarian pizza with melted cheese" },
+  { name: "Tomato & Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", image: detailImage, imageAlt: "Tomato and cheese pizza" },
+  { name: "Onion & Cheese Pizza", price: "S ₹75 · M ₹165 · L ₹265", category: "Pizza", image: heroImage, imageAlt: "Vegetarian pizza with onion and cheese" },
+  { name: "Loaded Cheese Pizza", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza", tag: "Best seller", image: heroImage, imageAlt: "Loaded vegetarian pizza ready to be sliced" },
+  { name: "Pizza Indiana", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza", image: detailImage, imageAlt: "Indian-style vegetarian pizza" },
+  { name: "Masala Paneer", price: "S ₹135 · M ₹265 · L ₹365", category: "Special Pizza", image: snacksImage, imageAlt: "Paneer and vegetarian café favourites" },
+  { name: "Dark Spicy", price: "S ₹175 · M ₹335 · L ₹465", category: "Special Pizza", tag: "Spicy", image: heroImage, imageAlt: "Spicy vegetarian pizza" },
+  { name: "Veg. Momos", price: "₹39", category: "Sides", image: snacksImage, imageAlt: "Vegetarian momos served with café snacks" },
+  { name: "Paneer Tikka", price: "₹49", category: "Sides", image: snacksImage, imageAlt: "Paneer tikka and vegetarian snacks" },
+  { name: "Cheese Garlic Bread", price: "₹80", category: "Sides", image: detailImage, imageAlt: "Cheesy garlic bread served warm" },
+  { name: "French Fries", price: "₹39", category: "Sides", image: snacksImage, imageAlt: "French fries with vegetarian café dishes" },
+  { name: "Veg. Maggi", price: "₹39", category: "Quick Bites", image: snacksImage, imageAlt: "Vegetarian quick bites at the café" },
+  { name: "Cold Coffee", price: "₹49", category: "Quick Bites", image: snacksImage, imageAlt: "Cold coffee with café snacks" },
+  { name: "Veg. Burger", price: "₹29", category: "Quick Bites", image: snacksImage, imageAlt: "Vegetarian burger served with snacks" },
+  { name: "Cheese Burger", price: "₹49", category: "Quick Bites", image: snacksImage, imageAlt: "Cheese burger with vegetarian sides" },
+  { name: "White Pasta", price: "₹79", category: "Quick Bites", image: detailImage, imageAlt: "Creamy vegetarian pasta" },
+  { name: "Medium Pizza + 2 Coke", price: "₹209", category: "Combos", tag: "Best deal", image: heroImage, imageAlt: "Medium vegetarian pizza combo" },
+  { name: "Burger, Fingers, Cold Drink Combo", price: "₹99", category: "Combos", tag: "Best deal", image: snacksImage, imageAlt: "Burger and snack combo on a café table" },
+  { name: "Veg Combo Double", price: "₹269", category: "Combos", tag: "Best deal", image: snacksImage, imageAlt: "Vegetarian combo meal" },
 ];
 const categories = ["All", "Pizza", "Special Pizza", "Combos", "Sides", "Quick Bites"];
 
@@ -77,7 +78,7 @@ export default function Home() {
 
       <section className="menu-section section-pad" id="menu"><div className="section-heading"><div><p className="eyebrow">The good stuff</p><h2>Pick your craving.</h2></div><p className="heading-note">Every order is made fresh, hot and with a little extra love.</p></div>
         <div className="menu-tools"><div className="category-tabs">{categories.map((category) => <button key={category} className={activeCategory === category ? "active" : ""} onClick={() => setActiveCategory(category)}>{category}</button>)}</div><label className="search-box"><Search size={17} /><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search the menu" aria-label="Search the menu" /></label></div>
-        <div className="menu-grid">{filtered.map((item, index) => <article className={item.image ? "menu-card menu-card-image" : "menu-card"} key={item.name} style={{ "--delay": `${index * 35}ms` } as React.CSSProperties}>{item.image && <img src={item.image} alt="" />}{item.tag && <span className="item-tag">{item.tag}</span>}<div className="menu-card-body"><span className="item-category">{item.category}</span><h3>{item.name}</h3><p className="price">{item.price}</p><a className="mini-order" href={orderLink(item.name)} target="_blank" rel="noreferrer">Order this <ArrowUpRight size={14} /></a></div></article>)}</div>
+        <div className="menu-grid">{filtered.map((item, index) => <article className="menu-card menu-card-image" key={item.name} style={{ "--delay": `${index * 35}ms` } as React.CSSProperties}><img src={item.image} alt={item.imageAlt} onError={(event) => { const image = event.currentTarget; if (image.dataset.fallbackApplied === "true") return; image.dataset.fallbackApplied = "true"; image.src = imageFallback; }} />{item.tag && <span className="item-tag">{item.tag}</span>}<div className="menu-card-body"><span className="item-category">{item.category}</span><h3>{item.name}</h3><p className="price">{item.price}</p><a className="mini-order" href={orderLink(item.name)} target="_blank" rel="noreferrer">Order this <ArrowUpRight size={14} /></a></div></article>)}</div>
         {!filtered.length && <div className="empty-state">No cravings found for “{search}”. Try another search or category.</div>}
       </section>
 
